@@ -126,17 +126,9 @@ func towersOfHanoi(ts TowerSlice) TowerSlice  {
 // Function to move all disks from towerOrigin to towerDest using towerInterm as intermediary.
 
 func (towers *TowerSlice) makeMove(towerOrigin, towerDest, towerInterm, numDisks int) {
-	if numDisks == 2 {
-		d := towers.pop(towerOrigin)
-		towers.push(d, towerInterm, true)
-		
-		d = towers.pop(towerOrigin)
-		towers.push(d, towerDest, true)
-		
-		d = towers.pop(towerInterm)
-		towers.push(d, towerDest, true)
-		
-	} else {
+
+    if numDisks > 0 {
+    
 		towers.makeMove(towerOrigin, towerInterm, towerDest, numDisks - 1)
         
 		d := towers.pop(towerOrigin)
