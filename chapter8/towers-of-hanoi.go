@@ -107,17 +107,6 @@ func (ts *TowerSlice) print(replace bool) {
 // Function to solve. 
 func towersOfHanoi(ts TowerSlice) TowerSlice  {
 	ts.print(false)
-
-	
-	// If number of disks in first tower is one, simply move the disk to last tower.
-	if ts[0].NumDisks == 1 {
-		d := ts.pop(0)
-		ts.push(d, 2, true)
-		
-		return ts
-	}
-	
-	// If number of disks is at least two, then call makeMove to move the disks from tower 1 to tower 3 using tower 2 and intermediary.
 	ts.makeMove(0, 2, 1, ts[0].NumDisks)
 	return ts
 }
@@ -139,6 +128,7 @@ func (towers *TowerSlice) makeMove(towerOrigin, towerDest, towerInterm, numDisks
 }
 
 
+
 func overwriteLinesTerminal(numLines int) {
     cmd := exec.Command("echo", "-en", "\\e[" + strconv.Itoa(numLines)+ "A")  
 	cmd.Stdout = f    
@@ -158,31 +148,10 @@ func main() {
 	flag.IntVar(&timeDelay, "t", 500, "delay between moves animation")
     
     flag.Parse()
-    
-    
-    /* var err error
-    if len(os.Args) == 1 {
-        fmt.Println("\nHey! Just FYI, you can define the number of disks to start with by passing an argument for the number of disks you like:\n\nExample: towers-of-hanoi 3\n\nYou can also define the difference in time between moves by defining a secon")
-        
-    } else if len(os.Args) == 2 {
-    
-        if numDisks, err = strconv.Atoi(os.Args[1]); err != nil || numDisks <= 0 {
-            fmt.Println("\nWhoops! The argument passed needs to be a positive number :) ")
-            return
-        }
-        
-        
-        
-        
-    } */
-    
+
     fmt.Printf("\nRunning towers of hanoi with %d initial disks\n\n", numDisks)
         
-        
-        
-        
-    
-	
+
 	
 	
 	// Create the towers
