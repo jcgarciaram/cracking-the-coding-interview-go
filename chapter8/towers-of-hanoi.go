@@ -1,3 +1,7 @@
+// Problem 8.5 Towers of Hanoi
+
+// https://play.golang.org/p/D9cqRB2EPB
+
 package main
 
 import (
