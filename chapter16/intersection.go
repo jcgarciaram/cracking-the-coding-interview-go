@@ -1,8 +1,11 @@
+//https://play.golang.org/p/Az1giFF78K
+
 package main
 
 import (
 	"fmt"
 	"errors"
+	"math"
 )
 
 type Point struct {
@@ -22,7 +25,8 @@ func getSlopeOffset(l Line) (float64, float64) {
 } 
 
 func pointInLine(l Line, p Point) bool {
-	return p.x >= min(l.start.x, l.end.x) && p.x <= max(l.start.x, l.end.x) && p.y >= min(l.start.y, l.end.y) && p.y <= max(l.start.y, l.end.y)
+	return p.x >= math.Min(l.start.x, l.end.x) && p.x <= math.Max(l.start.x, l.end.x) && p.y >= math.Min(l.start.y, l.end.y) && p.y <= math.Max(l.start.y, l.end.y)
+}
 
 func intersection(a Line, b Line) (Point, error) {
 
