@@ -1,4 +1,4 @@
-//https://play.golang.org/p/G966tooIq5
+//https://play.golang.org/p/XtVY7Z1nxM
 
 package main
 
@@ -45,6 +45,7 @@ func (graph *BabyNameGraph) createLinks(syns []SynonymName) {
 		if tempNode1, ok := graph.nodes[syns[i].name1]; ok {
 			if tempNode2, ok := graph.nodes[syns[i].name2]; ok {
 				tempNode1.nicknames = append(tempNode1.nicknames, tempNode2)
+				tempNode2.nicknames = append(tempNode2.nicknames, tempNode1)
 			}
 		}
 	}
@@ -96,6 +97,7 @@ func main() {
 	babyNames = append(babyNames, BabyName{"Johnny", 8})
 	babyNames = append(babyNames, BabyName{"Chris", 10})
 	babyNames = append(babyNames, BabyName{"Kris", 5})
+	babyNames = append(babyNames, BabyName{"Christopher", 2})
 	babyNames = append(babyNames, BabyName{"Joan", 8})
 	
 	fmt.Println(babyNames)
@@ -105,9 +107,9 @@ func main() {
 	syns = append(syns, SynonymName{"Jon", "Johnny"})
 	syns = append(syns, SynonymName{"Johnny", "John"})
 	syns = append(syns, SynonymName{"Chris", "Kris"})
-	syns = append(syns, SynonymName{"Kris", "Chris"})
+	syns = append(syns, SynonymName{"Chris", "Christopher"})
 	syns = append(syns, SynonymName{"Joan", "Jane"})
-	
+	syns = append(syns, SynonymName{"Joan", "John"})
 	
 	fmt.Println(syns)
 	
@@ -116,3 +118,4 @@ func main() {
 	fmt.Println(retBabyNames)
 	
 }
+
