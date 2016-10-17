@@ -53,7 +53,7 @@ func strEquationParseRecursive(eq string) (int, int) {
 	for i:=1; i < len(eq); i++ {
 		c := eq[i]
 		strC := string(c)
-		fmt.Printf("'%s'\n",string(c))
+		//fmt.Printf("'%s'\n",string(c))
 		
 		if (c == '+' || c == '-' || c == '*' || c == '/') && !operFound {
 			pc.oper = c
@@ -85,6 +85,7 @@ func strEquationParseRecursive(eq string) (int, int) {
 }
 
 func strEquationParse(eq string) int {
+	fmt.Println("Solving", eq)
 	ret, _ := strEquationParseRecursive(eq)
 	return ret
 }
@@ -92,23 +93,23 @@ func strEquationParse(eq string) int {
 
 func main() {
 	str := "75"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( * 1 2 )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( * 4 3 )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( * 4 ( + 8 3 9 ) )"
-	fmt.Println(str, "=", strEquationParse(str))
-	str = "( - 9 ( * 8 2 ( + 6 4 2 ) ) )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
+	str = "( + 15 ( + 8 2 ( + 6 4 2 ) 6 9 ( * 1 2 3 4 ) ) )"
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( * -10 ( - 8 5 ( + 6 4 ) ) )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( * -10 ( - -8 -5 ( + 6 -4 ) ) )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( * 6 -8 )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( + ( - 5 3 ) 8 )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 	str = "( + ( * 5 ( + 4 5 ) 7 ) 8 )"
-	fmt.Println(str, "=", strEquationParse(str))
+	fmt.Println(str, "=", strEquationParse(str), "\n")
 }
