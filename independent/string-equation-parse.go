@@ -70,7 +70,7 @@ func strEquationParse(eq string) int {
 			pc.nums = append(pc.nums, strEquationParse(eq[i+2:]))
 			inRecEq = true
 		} else if c == ')' && inRecEq {
-			inRecEq = true
+			inRecEq = false
 		} else if c == ')' && !inRecEq {
 			break
 		}
@@ -98,5 +98,7 @@ func main() {
 	str = "( * -10 ( - -8 -5 ( + 6 -4 ) ) )"
 	fmt.Println(str, "=", strEquationParse(str))
 	str = "( * 6 -8 )"
+	fmt.Println(str, "=", strEquationParse(str))
+	str = "( + ( - 5 3 ) 8 )"
 	fmt.Println(str, "=", strEquationParse(str))
 }
