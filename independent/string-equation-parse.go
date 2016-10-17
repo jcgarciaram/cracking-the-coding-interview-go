@@ -6,7 +6,7 @@ import (
 )
 
 type parenClause struct {
-	oper	rune
+	oper	byte
 	nums	[]int
 }
 
@@ -32,53 +32,61 @@ func (pc *parenClause) solve() int {
 			ret = ret/n
 		}
 	}
-	//fmt.Println("Solve:", ret)
+	fmt.Println("Solve:", string(pc.oper), pc.nums, "=", ret)
 	return ret
 }
 
-func strEquationParse(eq string) int {
-
+func strEquationParseRecursive(eq string) (int, int) {
+	
+	indexRet := 0
+	
 	if _, err := strconv.Atoi(string(eq[0])); err == nil {
 		ret, _ := strconv.Atoi(eq)
-		return ret
+		return ret, len(eq)
 	}
 	
 	pc := parenClause{}
 	
 	inNum := false
-	inRecEq := false
 	operFound := false
 	startNum := 0
-	for i, c := range eq[1:] {
+	for i:=1; i < len(eq); i++ {
+		c := eq[i]
 		strC := string(c)
+		fmt.Printf("'%s'\n",string(c))
 		
-		if (c == '+' || c == '-' || c == '*' || c == '/') && !inRecEq && !operFound {
+		if (c == '+' || c == '-' || c == '*' || c == '/') && !operFound {
 			pc.oper = c
 			operFound = true
-		} else if (c == '-') && !inNum && !inRecEq && operFound {
+		} else if (c == '-') && !inNum && operFound {
 			inNum = true
 			startNum = i
-		} else if _, err := strconv.Atoi(strC); err == nil && !inNum && !inRecEq {
+		} else if _, err := strconv.Atoi(strC); err == nil && !inNum {
 			inNum = true
 			startNum = i
-		} else if c == ' ' && inNum == true && !inRecEq {
+		} else if c == ' ' && inNum == true {
 			inNum = false
-			//fmt.Println(startNum, eq[startNum+1:i+1])
-			tmpInt, _ := strconv.Atoi(eq[startNum+1:i+1])
+			//fmt.Println(startNum, eq[startNum:i])
+			tmpInt, _ := strconv.Atoi(eq[startNum:i])
 			pc.nums = append(pc.nums, tmpInt)
-		} else if c == '(' && !inRecEq {
-			pc.nums = append(pc.nums, strEquationParse(eq[i+2:]))
-			inRecEq = true
-		} else if c == ')' && inRecEq {
-			inRecEq = false
-		} else if c == ')' && !inRecEq {
+		} else if c == '(' {
+			innerParentInt, lenInnerParen := strEquationParseRecursive(eq[i:])
+			i += lenInnerParen
+			pc.nums = append(pc.nums, innerParentInt)
+		} else if c == ')' {
+			indexRet = i 
 			break
 		}
 			
 	}
-	// fmt.Println(pc)
-	return pc.solve()
+	//fmt.Println(pc)
+	return pc.solve(), indexRet
 	
+}
+
+func strEquationParse(eq string) int {
+	ret, _ := strEquationParseRecursive(eq)
+	return ret
 }
 
 
@@ -100,5 +108,7 @@ func main() {
 	str = "( * 6 -8 )"
 	fmt.Println(str, "=", strEquationParse(str))
 	str = "( + ( - 5 3 ) 8 )"
+	fmt.Println(str, "=", strEquationParse(str))
+	str = "( + ( * 5 ( + 4 5 ) 7 ) 8 )"
 	fmt.Println(str, "=", strEquationParse(str))
 }
